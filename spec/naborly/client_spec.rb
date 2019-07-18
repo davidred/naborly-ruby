@@ -5,11 +5,11 @@ RSpec.describe Naborly::Ruby::Client do
   let(:naborly_client) { Naborly::Ruby::Client.new }
 
   describe '#authenticate!' do
-    it 'returns a naborly access token if it authenticated successfully' do
+    it 'returns a naborly access token' do
       expect(naborly_client.authenticate!).to be_a Naborly::Ruby::AccessToken
     end
 
-    it 'sets the naborly access token if authenticated successfully' do
+    it 'sets the naborly access token instance variable after authenticating successfully' do
       expect { naborly_client.authenticate! }.to change { naborly_client.access_token }.from(nil)
     end
 

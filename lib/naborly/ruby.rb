@@ -1,5 +1,6 @@
 require "naborly/ruby/version"
 require 'naborly/ruby/client'
+require 'naborly/ruby/client/api_subusers'
 require 'naborly/ruby/access_token'
 
 module Naborly

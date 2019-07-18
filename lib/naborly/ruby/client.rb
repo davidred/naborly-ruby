@@ -2,14 +2,16 @@ require 'httparty'
 require 'naborly/ruby/request'
 require 'naborly/ruby/response'
 require 'naborly/ruby/access_token'
-require 'naborly/ruby/client/api_subuser'
+require 'naborly/ruby/client/api_subusers'
+# require 'naborly/ruby/client'
 
 module Naborly
   module Ruby
     class Client
       include Naborly::Ruby::Request
+      include Naborly::Ruby::Client::ApiSubusers
 
-      attr_reader :client_id, :client_secret, :access_token
+      attr_reader :client_id, :client_secret, :access_token, :last_response
 
       AUTH_URL = 'https://auth.api.naborly.com/v1/auth'.freeze
       AUTH_BODY = { grant_type: 'client_credentials' }.freeze

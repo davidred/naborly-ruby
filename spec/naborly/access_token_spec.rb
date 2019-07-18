@@ -45,7 +45,7 @@ RSpec.describe Naborly::Ruby::AccessToken do
 
     it 'returns true if the access_token is not initialized with an expires_in attribute' do
       access_token = Naborly::Ruby::AccessToken.new({
-        access_token: token,
+        token: token,
         createdAt: Time.now.to_i - 2300
       })
 
