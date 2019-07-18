@@ -15,7 +15,7 @@ RSpec.describe Naborly::Ruby::Client do
 
     it 'raises an error if the credentials are incorrect' do
       unauthorized_client = Naborly::Ruby::Client.new(client_id: 'bogus_id', client_secret: 'bogus_secret')
-      expect { unauthorized_client.authenticate! }.to raise_error(Naborly::Ruby::UnauthenticatedError, 'Unauthorized')
+      expect { unauthorized_client.authenticate! }.to raise_error(Naborly::Ruby::UnauthenticatedError, 'Code: 401, body: Unauthorized')
     end
   end
 end

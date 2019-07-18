@@ -35,5 +35,6 @@ Gem::Specification.new do |spec|
   # spec.add_development_dependency "webmock", "~> 3.5"
 
   spec.add_dependency "httparty", "~> 0.17"
+  spec.add_dependency "oj", "~> 3.8"
   spec.add_dependency "activesupport", ">= 1.2", "<= 5.2"
 end

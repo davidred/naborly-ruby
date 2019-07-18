@@ -1,4 +1,5 @@
 require 'httparty'
+require 'oj'
 require 'naborly/ruby/request'
 require 'naborly/ruby/response'
 require 'naborly/ruby/access_token'
@@ -36,11 +37,7 @@ module Naborly
           basic_auth: { username: client_id, password: client_secret }
         )
 
-        if res.status == 200
-          @access_token = Naborly::Ruby::AccessToken.new(JSON.parse(res.body))
-        else res.status == 401
-          raise Naborly::Ruby::UnauthenticatedError.new(res.body)
-        end
+        @access_token = Naborly::Ruby::AccessToken.new(Oj.load(res.body))
       end
 
       def attributes
