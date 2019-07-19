@@ -1,13 +1,18 @@
 module Naborly
   module Ruby
     class Client
-      module ApiSubusers
-        API_PATH = 'https://sandbox.api.naborly.com/v1/addAPISubuser'.freeze
+      module RentalApplications
+        CREATE_RENTAL_APPLICATION_PATH = 'https://sandbox.api.naborly.com/v1/requestApplication'.freeze
+        GET_RENTAL_APPLICATION_STATUS_PATH = 'https://sandbox.api.naborly.com/v1/checkApplicationStatus'.freeze
 
         attr_reader :landlord_first_name, :landlord_last_name, :landlord_company, :landlord_phone, :landlord_email
 
-        def create_api_subuser(body = {})
-          request(http_method: :post, endpoint: API_PATH, body: body)
+        def create_rental_application(body = {})
+          request(http_method: :post, endpoint: CREATE_RENTAL_APPLICATION_PATH, body: body)
+        end
+
+        def get_rental_application_status(body = {})
+          request(http_method: :post, endpoint: GET_RENTAL_APPLICATION_STATUS_PATH, body: body)
         end
 
         # def initialize(attrs = {})

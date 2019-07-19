@@ -4,6 +4,7 @@ require 'naborly/ruby/request'
 require 'naborly/ruby/response'
 require 'naborly/ruby/access_token'
 require 'naborly/ruby/client/api_subusers'
+require 'naborly/ruby/client/rental_applications'
 # require 'naborly/ruby/client'
 
 module Naborly
@@ -11,6 +12,7 @@ module Naborly
     class Client
       include Naborly::Ruby::Request
       include Naborly::Ruby::Client::ApiSubusers
+      include Naborly::Ruby::Client::RentalApplications
 
       attr_reader :client_id, :client_secret, :access_token, :last_response
 

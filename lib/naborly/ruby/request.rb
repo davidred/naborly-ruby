@@ -30,7 +30,7 @@ module Naborly
       end
 
       def response_successful?
-        @last_response.status == Naborly::Ruby::HTTP_OK_CODE
+        [Naborly::Ruby::HTTP_OK_CODE, Naborly::Ruby::HTTP_CREATED_CODE].include?(last_response.status)
       end
 
       def auth_header
