@@ -1,5 +1,3 @@
-require 'pry'
-
 module Naborly
   module Ruby
     module Request
@@ -10,7 +8,6 @@ module Naborly
         @last_response = Naborly::Ruby::Response.new(HTTParty.public_send(http_method, "#{HOST}#{path}", body: body, headers: auth_header))
 
         return last_response if response_successful?
-
         raise error_class, error_message
       end
 
