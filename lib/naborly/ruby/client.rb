@@ -20,12 +20,9 @@ module Naborly
       AUTH_BODY = { grant_type: 'client_credentials' }.freeze
       AUTH_HEADERS = { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'auth.api.naborly.com' }.freeze
 
-      CLIENT_ID = 'yxEcjm24RjxPQc44PNb8UDdIiVsgFS4k'.freeze
-      CLIENT_SECRET = 'GWjqF7m2ZCpbBrowPKK3j3chIe1cixmH'.freeze
-
       def initialize(options = {})
-        @client_id = options[:client_id] || CLIENT_ID
-        @client_secret = options[:client_secret] || CLIENT_SECRET
+        @client_id = options[:client_id] || ENV['CLIENT_ID']
+        @client_secret = options[:client_secret] || ENV['CLIENT_SECRET']
       end
 
       def authenticate!

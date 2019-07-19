@@ -24,6 +24,8 @@ module Naborly
           Naborly::Ruby::BadRequestError
         when Naborly::Ruby::HTTP_UNAUTHORIZED_CODE
           Naborly::Ruby::UnauthenticatedError
+        when Naborly::Ruby::HTTP_FORBIDDEN_CODE
+          Naborly::Ruby::ForbiddenError
         when Naborly::Ruby::HTTP_NOT_FOUND_CODE
           Naborly::Ruby::NotFoundError
         when Naborly::Ruby::HTTP_NOT_ACCEPTABLE_CODE

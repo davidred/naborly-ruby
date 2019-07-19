@@ -31,8 +31,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.2"
   spec.add_development_dependency "pry", "~> 0.12"
-  # spec.add_development_dependency "vcr", "~> 4.0"
-  # spec.add_development_dependency "webmock", "~> 3.5"
+  spec.add_development_dependency "vcr", "~> 4.0"
+  spec.add_development_dependency "webmock", "~> 3.5"
 
   spec.add_dependency "httparty", "~> 0.17"
   spec.add_dependency "oj", "~> 3.8"

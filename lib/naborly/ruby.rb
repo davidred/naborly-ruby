@@ -7,6 +7,7 @@ module Naborly
     # Your code goes here...
 
     class UnauthenticatedError < StandardError; end
+    class ForbiddenError < StandardError; end
     class BadRequestError < StandardError; end
     class NotFoundError < StandardError; end
     class NotAcceptableError < StandardError; end
@@ -23,6 +24,7 @@ module Naborly
 
     HTTP_BAD_REQUEST_CODE = 400
     HTTP_UNAUTHORIZED_CODE = 401
+    HTTP_FORBIDDEN_CODE = 403
     HTTP_NOT_FOUND_CODE = 404
     HTTP_NOT_ACCEPTABLE_CODE = 406
     HTTP_CONFLICT_CODE = 409
