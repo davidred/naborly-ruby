@@ -24,8 +24,20 @@ module Naborly
           Naborly::Ruby::BadRequestError
         when Naborly::Ruby::HTTP_UNAUTHORIZED_CODE
           Naborly::Ruby::UnauthenticatedError
+        when Naborly::Ruby::HTTP_NOT_FOUND_CODE
+          Naborly::Ruby::NotFoundError
+        when Naborly::Ruby::HTTP_NOT_ACCEPTABLE_CODE
+          Naborly::Ruby::NotAcceptableError
         when Naborly::Ruby::HTTP_CONFLICT_CODE
           Naborly::Ruby::ConflictError
+        when Naborly::Ruby::HTTP_EXPECTATION_FAILED_CODE
+          Naborly::Ruby::ConflictError
+        when Naborly::Ruby::HTTP_INTERNAL_SERVER_ERROR_CODE
+          Naborly::Ruby::InternalServerError
+        when Naborly::Ruby::HTTP_BAD_GATEWAY_CODE
+          Naborly::Ruby::BadGatewayError
+        else
+          Naborly::Ruby::UnknownError
         end
       end
 

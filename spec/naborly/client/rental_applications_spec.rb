@@ -5,13 +5,13 @@ RSpec.describe Naborly::Ruby::Client::RentalApplications do
   let(:naborly_client) { Naborly::Ruby::Client.new }
 
   describe '#create_rental_application' do
-    xit 'creates a rental application' do
+    it 'creates a rental application' do
       naborly_client.create_rental_application({
-        "landlordEmail" => "landlord@example.com",
+        "landlordEmail" => "landlord+1@example.com",
         "moveInDate" => "11-21-2020",
         "monthlyRent" => "1850.0",
         "leaseTerm" => 12,
-        "tenantEmail" => "tenant@example.com",
+        "tenantEmail" => "tenant+5@example.com",
         "tenantDateOfBirth" => "01-12-2001",
         "property" => {
             "address" => "1486 Bryant St",
@@ -25,17 +25,17 @@ RSpec.describe Naborly::Ruby::Client::RentalApplications do
       })
 
       expect(naborly_client.last_response.status).to eq(201)
-      expect(Oj.load(naborly_client.last_response.body)).to eq(hash_including("applicationId"))
+      expect(Oj.load(naborly_client.last_response.body)["applicationId"]).to_not be_empty
     end
 
-    xit 'raises an error when duplicating a rental application' do
+    it 'raises a not acceptable error when creating a rental application for an existing tenant' do
       expect {
         naborly_client.create_rental_application({
-          "landlordEmail" => "landlord@example.com",
+          "landlordEmail" => "landlord+1@example.com",
           "moveInDate" => "11-21-2020",
           "monthlyRent" => "1850.0",
           "leaseTerm" => 12,
-          "tenantEmail" => "tenant@example.com",
+          "tenantEmail" => "tenant+5@example.com",
           "tenantDateOfBirth" => "01-12-2001",
           "property" => {
               "address" => "1486 Bryant St",
@@ -47,18 +47,18 @@ RSpec.describe Naborly::Ruby::Client::RentalApplications do
               "type" => "condo"
           }
         })
-      }.to raise_error(Naborly::Ruby::ConflictError, 'Code: 409, body: ')
+      }.to raise_error(Naborly::Ruby::NotAcceptableError, 'Code: 406, body: ')
     end
   end
 
   describe '#get_rental_application_status' do
-    xit 'gets the rental application status' do
+    it 'gets the rental application status' do
       naborly_client.get_rental_application_status({
-        "applicationId" => "applicationId_here"
+        "applicationId" => "976adde2-65b4-41a2-bc07-5ad2e7a8d2da"
       })
 
-      expect(naborly_client.last_response.status).to eq(201)
-      expect(Oj.load(naborly_client.last_response.body)).to eq(hash_including({ "status" => "application_created" }))
+      expect(naborly_client.last_response.status).to eq(200)
+      expect(Oj.load(naborly_client.last_response.body)).to eq({ "status" => "application_created" })
     end
   end
 end
