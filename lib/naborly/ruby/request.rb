@@ -1,22 +1,39 @@
+require 'pry'
+
 module Naborly
   module Ruby
     module Request
-      def request(http_method:, endpoint:, body: {}, headers: {})
+      HOST = ENV['NABORLY_HOST'] || 'https://sandbox.api.naborly.com'.freeze
+
+      def request(http_method:, path:, body: {}, headers: {})
         authenticate!
-        @last_response = Naborly::Ruby::Response.new(HTTParty.public_send(http_method, endpoint, body: body, headers: auth_header))
+        @last_response = Naborly::Ruby::Response.new(HTTParty.public_send(http_method, "#{HOST}#{path}", body: body, headers: auth_header))
 
         return last_response if response_successful?
-        raise error_class, "Code: #{last_response.status}, body: #{last_response.body}"
+
+        raise error_class, error_message
       end
 
       def auth_request(http_method:, endpoint:, body: {}, headers: {}, basic_auth: {})
         @last_response = Naborly::Ruby::Response.new(HTTParty.public_send(http_method, endpoint, body: body, headers: headers, basic_auth: basic_auth))
 
         return last_response if response_successful?
-        raise error_class, "Code: #{last_response.status}, body: #{last_response.body}"
+        raise error_class, error_message
       end
 
       private
+
+      def error_message
+        msg = "Code: #{last_response.status}"
+
+        if last_response&.parsed_body
+          msg += ", message: #{last_response.parsed_body['message']}" if last_response&.parsed_body && last_response&.parsed_body.is_a?(Hash)
+        elsif last_response.body && !last_response.body.empty?
+          msg += ", message: #{last_response.body}"
+        end
+
+        msg
+      end
 
       def error_class
         case last_response.status

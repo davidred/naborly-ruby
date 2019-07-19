@@ -28,7 +28,7 @@ RSpec.describe Naborly::Ruby::Client::ApiSubusers do
             "landlordPhone" => "123-123-1234",
             "landlordEmail" => "landlord+99@example.com"
           })
-        }.to raise_error(Naborly::Ruby::ConflictError, 'Code: 409, body: ')
+        }.to raise_error(Naborly::Ruby::ConflictError, 'Code: 409')
       end
     end
   end

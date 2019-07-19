@@ -1,5 +1,4 @@
 require 'httparty'
-require 'oj'
 require 'naborly/ruby/request'
 require 'naborly/ruby/response'
 require 'naborly/ruby/access_token'
@@ -36,7 +35,7 @@ module Naborly
           basic_auth: { username: client_id, password: client_secret }
         )
 
-        @access_token = Naborly::Ruby::AccessToken.new(Oj.load(res.body))
+        @access_token = Naborly::Ruby::AccessToken.new(res.parsed_body)
       end
 
       def attributes

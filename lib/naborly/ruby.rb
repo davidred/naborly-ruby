@@ -4,7 +4,6 @@ require 'naborly/ruby/client'
 module Naborly
   module Ruby
     class Error < StandardError; end
-    # Your code goes here...
 
     class UnauthenticatedError < StandardError; end
     class ForbiddenError < StandardError; end

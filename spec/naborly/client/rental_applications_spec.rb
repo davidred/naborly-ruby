@@ -51,7 +51,7 @@ RSpec.describe Naborly::Ruby::Client::RentalApplications do
                 "type" => "condo"
             }
           })
-        }.to raise_error(Naborly::Ruby::NotAcceptableError, 'Code: 406, body: ')
+        }.to raise_error(Naborly::Ruby::NotAcceptableError, 'Code: 406')
       end
     end
   end
@@ -72,12 +72,10 @@ RSpec.describe Naborly::Ruby::Client::RentalApplications do
   describe '#attach_file' do
     it 'attaches a file' do
       VCR.use_cassette('attach_file') do
-        expect {
-          naborly_client.attach_file({
-            'applicationId' => '976adde2-65b4-41a2-bc07-5ad2e7a8d2da',
-            file: File.open('./spec/fixtures/files/walrus.jpg')
-          })
-        }
+        naborly_client.attach_file({
+          'applicationId' => '976adde2-65b4-41a2-bc07-5ad2e7a8d2da',
+          file: File.open('./spec/fixtures/files/walrus.jpg')
+        })
       end
 
       expect(naborly_client.last_response.status).to eq(201)
@@ -92,7 +90,32 @@ RSpec.describe Naborly::Ruby::Client::RentalApplications do
             'applicationId' => 'bogus',
             file: File.open('./spec/fixtures/files/walrus.jpg')
           })
-        }.to raise_error(Naborly::Ruby::NotAcceptableError, 'Code: 406, body: ')
+        }.to raise_error(Naborly::Ruby::NotAcceptableError, 'Code: 406')
+      end
+    end
+
+    describe '#validate_application' do
+      it 'updates an application' do
+        VCR.use_cassette('validate_application') do
+          expect {
+            naborly_client.validate_application({
+              'applicationId' => '976adde2-65b4-41a2-bc07-5ad2e7a8d2da',
+              'personalInformation' => {
+                  'tenantFirstName' => 'John',
+                  'tenantMiddleName' => 'Claude',
+                  'tenantLastName' => 'Doe',
+                  'aliasFirstName' => 'Jack',
+                  'aliasMiddleName' => 'Miller',
+                  'aliasLastName' => 'Cox',
+                  'phone' => '',
+                  'monthlyRent' => 1850
+              }
+            })
+          }.to raise_error(Naborly::Ruby::NotAcceptableError, 'Code: 406, message: Application data validation failed')
+        end
+
+        expect(json['message']).to eq('Application data validation failed')
+        expect(json['errors']).to include(hash_including("message", "path", "type", "context"))
       end
     end
   end
