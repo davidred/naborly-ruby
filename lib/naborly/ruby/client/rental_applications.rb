@@ -4,6 +4,7 @@ module Naborly
       module RentalApplications
         CREATE_RENTAL_APPLICATION_PATH = 'https://sandbox.api.naborly.com/v1/requestApplication'.freeze
         GET_RENTAL_APPLICATION_STATUS_PATH = 'https://sandbox.api.naborly.com/v1/checkApplicationStatus'.freeze
+        ATTACH_FILE_PATH = 'https://sandbox.api.naborly.com/v1/attachFile'.freeze
 
         attr_reader :landlord_first_name, :landlord_last_name, :landlord_company, :landlord_phone, :landlord_email
 
@@ -13,6 +14,10 @@ module Naborly
 
         def get_rental_application_status(body = {})
           request(http_method: :post, endpoint: GET_RENTAL_APPLICATION_STATUS_PATH, body: body)
+        end
+
+        def attach_file(body = {})
+          request(http_method: :put, endpoint: ATTACH_FILE_PATH, body: body)
         end
 
         # def initialize(attrs = {})

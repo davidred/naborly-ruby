@@ -3,7 +3,7 @@ module Naborly
     module Request
       def request(http_method:, endpoint:, body: {}, headers: {})
         authenticate!
-        @last_response = Naborly::Ruby::Response.new(HTTParty.public_send(http_method, endpoint, body: body.to_json, headers: auth_header))
+        @last_response = Naborly::Ruby::Response.new(HTTParty.public_send(http_method, endpoint, body: body, headers: auth_header))
 
         return last_response if response_successful?
         raise error_class, "Code: #{last_response.status}, body: #{last_response.body}"

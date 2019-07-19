@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'naborly/ruby'
+require_relative './support/request_helper'
 require 'vcr'
 
 RSpec.configure do |config|
@@ -8,6 +9,9 @@ RSpec.configure do |config|
 
   # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
+
+  # Include RequestHelper
+  config.include Requests::JsonHelpers
 
   VCR.configure do |c|
     c.cassette_library_dir = 'test/fixtures'
